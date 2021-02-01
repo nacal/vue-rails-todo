@@ -1,4 +1,6 @@
 class ToDosController < ApplicationController
+  before_action :set_to_do, only: [:edit, :update]
+
   def index
     @to_dos = ToDo.all
   end
@@ -17,16 +19,18 @@ class ToDosController < ApplicationController
   end
 
   def edit
-    @to_do = ToDo.find_by(id: params[:id])
   end
 
   def update
-    @to_do = ToDo.find_by(id: params[:id])
     if @to_do.update(to_do_params)
       redirect_to to_dos_url
     else
       render :edit
     end
+  end
+
+  def set_to_do
+    @to_do = ToDo.find_by(id: params[:id])
   end
 
   private
