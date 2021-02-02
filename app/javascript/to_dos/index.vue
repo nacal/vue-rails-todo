@@ -6,42 +6,20 @@
     </v-tabs>
     <v-tabs-items v-model="activeTab">
       <v-tab-item value="toDo">
-        <v-data-table
+        <ToDoTable
           :headers="headers"
           :items="filter(toDos, false)"
-          class="table"
-        >
-          <template v-slot:[`item.delete`]="{ item }">
-            <v-btn @click="destroyToDo(item.id)" block>
-              <v-icon dense>mdi-delete</v-icon>
-            </v-btn>
-          </template>
-          <template v-slot:[`item.finished`]="{ item }">
-            <v-checkbox
-              v-model="item.finished"
-              @change="updateToDo(item.id, item.finished)"
-            ></v-checkbox>
-          </template>
-        </v-data-table>
+          @update="updateToDo"
+          @destroy="destroyToDo"
+        />
       </v-tab-item>
       <v-tab-item value="finishedToDo">
-        <v-data-table
+        <ToDoTable
           :headers="headers"
           :items="filter(toDos, true)"
-          class="table"
-        >
-          <template v-slot:[`item.delete`]="{ item }">
-            <v-btn @click="destroyToDo(item.id)" block>
-              <v-icon dense>mdi-delete</v-icon>
-            </v-btn>
-          </template>
-          <template v-slot:[`item.finished`]="{ item }">
-            <v-checkbox
-              v-model="item.finished"
-              @change="updateToDo(item.id, item.finished)"
-            ></v-checkbox>
-          </template>
-        </v-data-table>
+          @update="updateToDo"
+          @destroy="destroyToDo"
+        />
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -49,9 +27,13 @@
 
 <script>
 import axios from 'axios'
-import {reject, filter} from 'lodash';
+import {reject, filter} from 'lodash'
+import ToDoTable from '../to_dos/c-ToDoTable'
 
   export default {
+    components: {
+      ToDoTable
+    },
     data() {
       return {
         headers: [
@@ -110,9 +92,3 @@ import {reject, filter} from 'lodash';
     }
   }
 </script>
-
-<style scoped>
-.table{
-  text-align: left;
-}
-</style>>

@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app">
+  <div>
     <v-form
       :model="toDo"
       :action="toDo.action"
@@ -30,7 +30,7 @@
         native-type="submit">作成
       </v-btn>
     </v-form>
-  </v-app>
+  </div>
 </template>
 
 <script>
