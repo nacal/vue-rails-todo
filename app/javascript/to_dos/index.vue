@@ -1,28 +1,55 @@
 <template>
   <div>
-    <v-data-table
-      :headers="headers"
-      :items="toDos"
-      class="table"
-    >
-      <template v-slot:[`item.delete`]="{ item }">
-        <v-btn @click="destroyToDo(item.id)" block>
-          <v-icon dense>mdi-delete</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:[`item.finished`]="{ item }">
-        <v-checkbox
-          v-model="item.finished"
-          @change="updateToDo(item.id, item.finished)"
-        ></v-checkbox>
-      </template>
-    </v-data-table>
+    <v-tabs v-model="activeTab">
+      <v-tab href="#toDo">ToDo</v-tab>
+      <v-tab href="#finishedToDo">終了したToDo</v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="activeTab">
+      <v-tab-item value="toDo">
+        <v-data-table
+          :headers="headers"
+          :items="filter(toDos, false)"
+          class="table"
+        >
+          <template v-slot:[`item.delete`]="{ item }">
+            <v-btn @click="destroyToDo(item.id)" block>
+              <v-icon dense>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+          <template v-slot:[`item.finished`]="{ item }">
+            <v-checkbox
+              v-model="item.finished"
+              @change="updateToDo(item.id, item.finished)"
+            ></v-checkbox>
+          </template>
+        </v-data-table>
+      </v-tab-item>
+      <v-tab-item value="finishedToDo">
+        <v-data-table
+          :headers="headers"
+          :items="filter(toDos, true)"
+          class="table"
+        >
+          <template v-slot:[`item.delete`]="{ item }">
+            <v-btn @click="destroyToDo(item.id)" block>
+              <v-icon dense>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+          <template v-slot:[`item.finished`]="{ item }">
+            <v-checkbox
+              v-model="item.finished"
+              @change="updateToDo(item.id, item.finished)"
+            ></v-checkbox>
+          </template>
+        </v-data-table>
+      </v-tab-item>
+    </v-tabs-items>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import {reject} from 'lodash'
+import {reject, filter} from 'lodash';
 
   export default {
     data() {
@@ -50,7 +77,8 @@ import {reject} from 'lodash'
             width: '120px'
           }
         ],
-        toDos: []
+        toDos: [],
+        activeTab: 'toDo'
       }
     },
     created() {
@@ -75,6 +103,9 @@ import {reject} from 'lodash'
               console.log(res)
             }
         })
+      },
+      filter(toDos, finished) {
+        return filter(toDos, ['finished', finished])
       }
     }
   }
