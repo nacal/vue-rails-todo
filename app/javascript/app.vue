@@ -22,7 +22,7 @@
         v-model="toDo.expiredAt"
         name="to_do[expired_at]" /> -->
 
-        <v-datetime-picker v-value="test" date-format="yyyy/MM/dd" />
+        <v-datetime-picker v-value="toDo.expiredAt" date-format="yyyy/MM/dd" />
       <div>Datetime value: {{ toDo.expiredAt|dateFormat }}</div>
 
       <v-btn
@@ -43,7 +43,7 @@ export default {
       toDo: {
         csrfToken: document.getElementsByName('csrf-token')[0].content,
         title: '',
-        expiredAt: moment(this.test).format('YYYY/MM/DD'),
+        expiredAt: '',
         action: '/to_dos'
       },
       test: '',
