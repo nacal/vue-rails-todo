@@ -8,9 +8,11 @@
 import Vue from 'vue'
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"
+import DatetimePicker from 'vuetify-datetime-picker'
 import App from '../app.vue'
 
 Vue.use(Vuetify)
+Vue.use(DatetimePicker)
 const vuetify = new Vuetify()
 
 document.addEventListener('DOMContentLoaded', () => {

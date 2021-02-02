@@ -1,17 +1,59 @@
 <template>
   <v-app id="app">
-    <v-btn>Vuetifyのボタン</v-btn>
-    <div>
-      <p>{{ message }}</p>
-    </div>
+    <v-form
+      :model="toDo"
+      :action="toDo.action"
+      method="post">
+      <v-text-field
+        type="hidden"
+        :value="toDo.csrfToken"
+        name="authenticity_token">
+      </v-text-field>
+      <v-text-field
+        v-model="toDo.title"
+        name="to_do[title]">
+      </v-text-field>
+
+      <!-- <v-date-picker
+        type="datetime"
+        format="yyyy/MM/dd HH:mm"
+        value-format="yyyy/MM/dd HH:mm"
+        placeholder="期限を選択"
+        v-model="toDo.expiredAt"
+        name="to_do[expired_at]" /> -->
+
+        <v-datetime-picker v-value="test" date-format="yyyy/MM/dd" />
+      <div>Datetime value: {{ toDo.expiredAt|dateFormat }}</div>
+
+      <v-btn
+        type="primary"
+        native-type="submit">作成
+      </v-btn>
+    </v-form>
   </v-app>
 </template>
 
 <script>
+import moment from "moment";
+moment.locale('ja')
+
 export default {
-  data: function () {
+  data() {
     return {
-      message: "Hello Vue!"
+      toDo: {
+        csrfToken: document.getElementsByName('csrf-token')[0].content,
+        title: '',
+        expiredAt: moment(this.test).format('YYYY/MM/DD'),
+        action: '/to_dos'
+      },
+      test: '',
+    }
+  },
+  filters:{
+    dateFormat: function(value){
+      if(value != ''){
+        return moment(value).format('YYYY/MM/DD hh:mm');
+      }
     }
   }
 }
