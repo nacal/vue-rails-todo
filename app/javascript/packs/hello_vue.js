@@ -9,6 +9,7 @@ import Vue from 'vue'
 import Vuetify from "vuetify"
 import "vuetify/dist/vuetify.min.css"
 import DatetimePicker from 'vuetify-datetime-picker'
+import '@mdi/font/css/materialdesignicons.css'
 import App from '../app.vue'
 
 Vue.use(Vuetify)
