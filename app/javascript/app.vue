@@ -4,30 +4,35 @@
       :model="toDo"
       :action="toDo.action"
       method="post">
+
       <v-text-field
-        type="hidden"
+        class="d-none"
         :value="toDo.csrfToken"
-        name="authenticity_token">
-      </v-text-field>
+        name="authenticity_token"
+      />
+
       <v-text-field
         v-model="toDo.title"
-        name="to_do[title]">
-      </v-text-field>
+        name="to_do[title]"
+        label="title"
+      />
 
-      <!-- <v-date-picker
-        type="datetime"
-        format="yyyy/MM/dd HH:mm"
-        value-format="yyyy/MM/dd HH:mm"
-        placeholder="期限を選択"
+      <v-text-field
+        class="d-none"
         v-model="toDo.expiredAt"
-        name="to_do[expired_at]" /> -->
+        name="to_do[expired_at]"
+      />
 
-        <v-datetime-picker v-value="toDo.expiredAt" date-format="yyyy/MM/dd" />
-      <div>Datetime value: {{ toDo.expiredAt|dateFormat }}</div>
+      <v-datetime-picker
+        v-model="toDo.expiredAt"
+        @input="format"
+        date-format="yyyy/MM/dd"
+        label="expiredAt"
+      />
 
       <v-btn
         type="primary"
-        native-type="submit">作成
+        native-type="submit">create
       </v-btn>
     </v-form>
   </v-app>
@@ -49,11 +54,9 @@ export default {
       test: '',
     }
   },
-  filters:{
-    dateFormat: function(value){
-      if(value != ''){
-        return moment(value).format('YYYY/MM/DD hh:mm');
-      }
+  methods: {
+    format: function() {
+      this.toDo.expiredAt = moment(this.toDo.expiredAt).format('YYYY/MM/DD HH:mm')
     }
   }
 }
