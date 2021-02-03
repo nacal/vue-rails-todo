@@ -38,10 +38,9 @@ import ToDoTable from '../to_dos/c-ToDoTable'
       return {
         headers: [
           {
-            text: 'finished',
+            text: '',
             value: 'finished',
             sortable: false,
-            width: '120px'
           },
           {
             text: 'title',
@@ -53,10 +52,9 @@ import ToDoTable from '../to_dos/c-ToDoTable'
             width: '240px'
           },
           {
-            text: 'delete',
+            text: '',
             value: 'delete',
             sortable: false,
-            width: '120px'
           }
         ],
         toDos: [],
