@@ -10,13 +10,13 @@
             Create ToDo
           </v-card-title>
           <v-card-text>
-            <ToDoForm ref="ToDoForm" />
+            <ToDoForm ref="ToDoForm" @add="addToDo"/>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn type="primary" color="primary" @click="createToDo">
-              create
+              Create
             </v-btn>
             <v-btn color="primary" outlined @click="createToDoDialog = false">
               Close
@@ -115,6 +115,9 @@ export default {
     createToDo() {
       this.createToDoDialog = false
       this.$refs.ToDoForm.createToDo()
+    },
+    addToDo(toDo) {
+      this.toDos.push(toDo)
     }
   }
 }

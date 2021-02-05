@@ -21,8 +21,6 @@
         label="expiredAt"
         @input="format"
       />
-
-      <v-btn type="primary" @click="createToDo">create </v-btn>
     </v-form>
   </div>
 </template>
@@ -57,6 +55,7 @@ export default {
         .then(res => {
           switch (res.status) {
             case 201:
+              this.$emit('add', res.data)
               this.toDo = { title: '', expiredAt: '' }
               break
             case 400:
