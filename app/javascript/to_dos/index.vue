@@ -1,27 +1,58 @@
 <template>
   <div>
-    <v-tabs v-model="activeTab">
-      <v-tab href="#toDo">ToDo</v-tab>
-      <v-tab href="#finishedToDo">終了したToDo</v-tab>
-    </v-tabs>
-    <v-tabs-items v-model="activeTab">
-      <v-tab-item value="toDo">
-        <ToDoTable
-          :headers="headers"
-          :items="filter(toDos, false)"
-          @update="updateToDo"
-          @destroy="destroyToDo"
-        />
-      </v-tab-item>
-      <v-tab-item value="finishedToDo">
-        <ToDoTable
-          :headers="headers"
-          :items="filter(toDos, true)"
-          @update="updateToDo"
-          @destroy="destroyToDo"
-        />
-      </v-tab-item>
-    </v-tabs-items>
+    <v-container>
+      <v-dialog v-model="createToDoDialog">
+        <template #activator="{ on }">
+          <v-btn v-on="on">create</v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="headline">
+            Create ToDo
+          </v-card-title>
+          <v-card-text>
+            <ToDoForm ref="ToDoForm"/>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              type="primary"
+              color="primary"
+              @click="createToDo">
+              create
+            </v-btn>
+            <v-btn
+              color="primary"
+              outlined
+              @click="createToDoDialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-tabs v-model="activeTab">
+        <v-tab href="#toDo">ToDo</v-tab>
+        <v-tab href="#finishedToDo">終了したToDo</v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="activeTab">
+        <v-tab-item value="toDo">
+          <ToDoTable
+            :headers="headers"
+            :items="filter(toDos, false)"
+            @update="updateToDo"
+            @destroy="destroyToDo"
+          />
+        </v-tab-item>
+        <v-tab-item value="finishedToDo">
+          <ToDoTable
+            :headers="headers"
+            :items="filter(toDos, true)"
+            @update="updateToDo"
+            @destroy="destroyToDo"
+          />
+        </v-tab-item>
+      </v-tabs-items>
+    </v-container>
   </div>
 </template>
 
@@ -29,10 +60,12 @@
 import axios from 'axios'
 import {reject, filter} from 'lodash'
 import ToDoTable from '../to_dos/c-ToDoTable'
+import ToDoForm from '../to_dos/c-ToDoForm'
 
   export default {
     components: {
-      ToDoTable
+      ToDoTable,
+      ToDoForm
     },
     data() {
       return {
@@ -58,7 +91,8 @@ import ToDoTable from '../to_dos/c-ToDoTable'
           }
         ],
         toDos: [],
-        activeTab: 'toDo'
+        activeTab: 'toDo',
+        createToDoDialog: false
       }
     },
     created() {
@@ -86,6 +120,10 @@ import ToDoTable from '../to_dos/c-ToDoTable'
       },
       filter(toDos, finished) {
         return filter(toDos, ['finished', finished])
+      },
+      createToDo() {
+        this.createToDoDialog = false
+        this.$refs.ToDoForm.createToDo()
       }
     }
   }
