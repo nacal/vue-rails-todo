@@ -1,13 +1,20 @@
 <template>
   <v-app id="app">
+    <div>
+      <v-toolbar color="primary" class="center">
+        <v-toolbar-title class="white--text font-weight-bold title">ReToDo</v-toolbar-title>
+      </v-toolbar>
+    </div>
     <v-container fluid>
-      <v-dialog v-model="createToDoDialog">
+      <v-dialog width="500" v-model="createToDoDialog">
         <template #activator="{ on }">
-          <v-btn v-on="on">create</v-btn>
+          <v-btn fab large color="success" class="btn" v-on="on">
+            <v-icon dense>mdi-playlist-plus</v-icon>
+          </v-btn>
         </template>
         <v-card>
           <v-card-title class="headline">
-            Create ToDo
+            ToDoを作成する
           </v-card-title>
           <v-card-text>
             <ToDoForm ref="ToDoForm" @add="addToDo"/>
@@ -35,7 +42,6 @@
             :items="filter(toDos, false)"
             @update="updateToDo"
             @destroy="destroyToDo"
-            @edit="editToDo"
           />
         </v-tab-item>
         <v-tab-item value="finishedToDo">
@@ -44,7 +50,6 @@
             :items="filter(toDos, true)"
             @update="updateToDo"
             @destroy="destroyToDo"
-            @edit="editToDo"
           />
         </v-tab-item>
       </v-tabs-items>
@@ -69,7 +74,7 @@ export default {
         {
           text: '',
           value: 'finished',
-          sortable: false
+          sortable: false,
         },
         {
           text: 'title',
@@ -78,13 +83,11 @@ export default {
         {
           text: 'expired_at',
           value: 'expired_at',
-          width: '240px'
         },
         {
           text: '',
           value: 'action',
           sortable: false,
-          width: '32px'
         }
       ],
       toDos: [],
@@ -130,3 +133,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.btn{
+  position: fixed;
+  z-index: 1;
+  right: 16px;
+
+  @media screen and (min-width:601px) {
+    top: 16px;
+  }
+
+  @media screen and (max-width:600px) {
+    bottom: 16px;
+  }
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+</style>

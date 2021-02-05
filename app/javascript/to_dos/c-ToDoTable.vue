@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" class="table">
+    <v-data-table :headers="headers" :items="items" hide-default-header>
       <template #[`item.action`]="{ item }">
-        <v-layout>
-          <v-btn fab x-small color="primary" @click="$emit('edit', item)">
+        <v-layout class="wd-right">
+          <!-- <v-btn fab x-small color="grey lighten-2" @click="$emit('edit', item)">
             <v-icon dense>mdi-pencil-outline</v-icon>
-          </v-btn>
-          <v-btn fab x-small color="error" class="ml-8" @click="$emit('destroy', item.id)">
+          </v-btn> -->
+          <v-btn fab x-small color="error" @click="$emit('destroy', item.id)">
             <v-icon dense>mdi-trash-can-outline</v-icon>
           </v-btn>
         </v-layout>
@@ -16,6 +16,9 @@
           v-model="item.finished"
           @change="$emit('update', item.id, item.finished)"
         ></v-checkbox>
+      </template>
+      <template #[`item.title`]="{ item }">
+        <h2>{{item.title}}</h2>
       </template>
     </v-data-table>
   </div>
@@ -27,8 +30,12 @@ export default {
 }
 </script>
 
-<style scoped>
-.table {
-  text-align: left;
+<style lang="scss" scoped>
+.wd-right{
+  justify-content: flex-end;
+  display: flex;
+  @media screen and (max-width:600px) {
+    margin-bottom: 8px;
+  }
 }
 </style>
