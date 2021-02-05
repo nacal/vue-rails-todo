@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app id="app">
     <v-container fluid>
       <v-dialog v-model="createToDoDialog">
         <template #activator="{ on }">
@@ -35,6 +35,7 @@
             :items="filter(toDos, false)"
             @update="updateToDo"
             @destroy="destroyToDo"
+            @edit="editToDo"
           />
         </v-tab-item>
         <v-tab-item value="finishedToDo">
@@ -43,11 +44,12 @@
             :items="filter(toDos, true)"
             @update="updateToDo"
             @destroy="destroyToDo"
+            @edit="editToDo"
           />
         </v-tab-item>
       </v-tabs-items>
     </v-container>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -59,7 +61,7 @@ import ToDoForm from '../to_dos/c-ToDoForm'
 export default {
   components: {
     ToDoTable,
-    ToDoForm
+    ToDoForm,
   },
   data() {
     return {
@@ -80,13 +82,15 @@ export default {
         },
         {
           text: '',
-          value: 'delete',
-          sortable: false
+          value: 'action',
+          sortable: false,
+          width: '32px'
         }
       ],
       toDos: [],
       activeTab: 'toDo',
-      createToDoDialog: false
+      createToDoDialog: false,
+      // editToDoDialog: false
     }
   },
   created() {
@@ -109,6 +113,10 @@ export default {
         }
       })
     },
+    // editToDo(item){
+    //   this.$refs.ToDoForm.editToDo(item)
+    //   this.createToDoDialog = true
+    // },
     filter(toDos, finished) {
       return filter(toDos, ['finished', finished])
     },

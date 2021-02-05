@@ -37,8 +37,9 @@ export default {
         csrfToken: document.getElementsByName('csrf-token')[0].content,
         title: '',
         expiredAt: '',
-        action: '/to_dos'
-      }
+        action: '/to_dos',
+        finished: false
+      },
     }
   },
   methods: {
@@ -63,7 +64,12 @@ export default {
               break
           }
         })
-    }
+    },
+    // editToDo(item){
+    //   this.toDo.title = Object.assign({}, item).title
+    //   this.toDo.expiredAt = Object.assign({}, item).expired_at
+    //   this.toDo.finished = Object.assign({}, item).finished
+    // }
   }
 }
 </script>
