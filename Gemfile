@@ -49,3 +49,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'annotate'
 gem "sassc", "< 2.2.0"
 gem 'foreman'
+gem 'rake', "12.3.3"
