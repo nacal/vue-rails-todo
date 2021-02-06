@@ -192,11 +192,7 @@ DEPENDENCIES
   listen (~> 3.3)
   msgpack (= 1.4.2)
   mysql2 (~> 0.5)
-<<<<<<< HEAD
-  pg
-=======
   nio4r (= 2.5.5)
->>>>>>> fc0605786587f68df70b9b28075b6387c0f7d804
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
