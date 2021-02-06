@@ -48,4 +48,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'annotate'
 gem "sassc", "< 2.2.0"
+<<<<<<< HEAD
 gem 'foreman'
+=======
+gem "bundler", ">= 1.15.0"
+gem "nio4r", "2.5.5"
+gem "msgpack", "1.4.2"
+>>>>>>> fc0605786587f68df70b9b28075b6387c0f7d804
