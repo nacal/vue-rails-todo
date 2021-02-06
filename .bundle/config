@@ -1,4 +1,4 @@
 ---
-BUNDLE_PATH: "vendor/bundle"
+BUNDLE_PATH: "vendor/cache"
 BUNDLE_BUILD__MYSQL2: "--with-ldflags=-L/usr/local/opt/openssl/lib"
 BUNDLE_DISABLE_SHARED_GEMS: "true"
