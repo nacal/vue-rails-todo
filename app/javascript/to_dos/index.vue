@@ -2,7 +2,7 @@
   <v-app id="app">
     <div>
       <v-toolbar color="primary" class="center">
-        <v-toolbar-title class="white--text font-weight-bold title">ReToDo</v-toolbar-title>
+        <v-toolbar-title class="white--text font-weight-bold title">VueRailsToDo</v-toolbar-title>
       </v-toolbar>
     </div>
     <v-container fluid>
